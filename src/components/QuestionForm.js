@@ -19,7 +19,20 @@ function QuestionForm(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(formData);
+    // console.log(formData);
+    fetch('http://localhost:4000/questions', {
+      method: 'POST',
+      body: JSON.stringify({
+        prompt: formData.prompt,
+        answers: [formData.answer1, formData.answer2, formData.answer3, formData.answer4],
+        correctIndex: formData.correctIndex,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
   }
 
   return (
